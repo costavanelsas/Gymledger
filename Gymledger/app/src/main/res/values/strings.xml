@@ -10,4 +10,7 @@
         The App will also save the date for which you can see a graph later. The graphs represent the gains that you have made.
         The app will generate recommendations on which exercise you will do and with the amount of weight/reps/sets.
 </string>
+    <string name="home">Home</string>
+    <string name="exercise">Exercise</string>
+    <string name="action_settings">Settings</string>
 </resources>
