@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Gymledger</string>
+    <string name="title">Gymledger</string>
+    <string name="author">© Costa van Elsas</string>
+    <string name="welcome_header">Welcome at Gymledger!</string>
+    <string name="welcome_text"> In this application you can choose between exercises and add you own exercises.
+        Also you can add the weight that you are doing while doing the exercise.
+        This app will be for everyone who goes to the gym.
+        This app creates the opportunity to get all your data in one app and create a clear view of which exercise and how many sets/reps and the amount of weight.
+        The App will also save the date for which you can see a graph later. The graphs represent the gains that you have made.
+        The app will generate recommendations on which exercise you will do and with the amount of weight/reps/sets.
+</string>
 </resources>
