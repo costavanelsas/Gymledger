@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "253894023011",
+    "firebase_url": "https://gymledger.firebaseio.com",
+    "project_id": "gymledger",
+    "storage_bucket": "gymledger.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:253894023011:android:16d233871fb19a92532556",
+        "android_client_info": {
+          "package_name": "com.example.gymledger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "253894023011-4grin41ah8epb56d7mviva342o8v1o58.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnz1JdbaHbFEeWCs_1JB7kspWmcbbaj68"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "253894023011-4grin41ah8epb56d7mviva342o8v1o58.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
