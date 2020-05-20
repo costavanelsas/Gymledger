@@ -50,9 +50,8 @@ class ExerciseFragment : Fragment() {
 //        rvExercise.adapter = exerciseAdapter
 
         recycler_view = view?.findViewById(R.id.rvExercise)
-        recycler_view?.layoutManager = LinearLayoutManager(context)
+        recycler_view?.layoutManager = LinearLayoutManager(this.context)
         recycler_view?.adapter = exerciseAdapter
-        recycler_view?.itemAnimator = DefaultItemAnimator()
     }
 
     /**
