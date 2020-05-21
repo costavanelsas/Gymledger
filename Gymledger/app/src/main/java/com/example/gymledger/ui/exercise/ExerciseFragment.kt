@@ -32,14 +32,16 @@ class ExerciseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        exerciseViewModel =
-            ViewModelProviders.of(this).get(ExerciseViewModel::class.java)
-        val root = inflater.inflate(R.layout.exercise_fragment, container, false)
+        return inflater.inflate(R.layout.exercise_fragment, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        exerciseViewModel = ViewModelProvider(this).get(ExerciseViewModel::class.java)
 
         initViewModel()
         initViews()
-
-        return root
     }
 
     /**
