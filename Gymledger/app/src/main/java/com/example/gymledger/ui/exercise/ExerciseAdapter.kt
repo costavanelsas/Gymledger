@@ -2,6 +2,7 @@ package com.example.gymledger.ui.exercise
 
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.inflate
 import android.view.ViewGroup
 import com.example.gymledger.R
 import com.example.gymledger.model.Exercise

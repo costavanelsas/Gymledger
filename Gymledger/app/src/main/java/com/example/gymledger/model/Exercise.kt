@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 
  * A set of data about exersise used in the exersise fragment.
  */
-data class Exercise (
+class Exercise (
     val naam: String = "",
     val beschrijving: String = "",
     val image: String = ""
