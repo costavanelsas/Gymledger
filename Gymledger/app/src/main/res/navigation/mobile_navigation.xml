@@ -11,12 +11,27 @@
         android:label="@string/home"
         tools:layout="@layout/home_fragment">
     </fragment>
-
-
     <fragment
         android:id="@+id/nav_exercise"
-        android:name="com.example.gymledger.ui.exercise.ExerciseFragment"
+        android:name="com.example.gymledger.ui.exercise.overview.ExerciseFragment"
         android:label="@string/exercise"
-        tools:layout="@layout/exercise_fragment" />
+        tools:layout="@layout/exercise_fragment">
+        <action
+            android:id="@+id/action_ExerciseFragment_to_ExerciseDetailFragment"
+            app:destination="@id/ExerciseDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ExerciseDetailFragment"
+        android:name="com.example.gymledger.ui.exercise.detail.ExerciseDetailFragment"
+        android:label="{naam}"
+        tools:layout="@layout/fragment_exercise_detail">
+        <argument
+            android:name="exercise"
+            app:argType="com.example.gymledger.model.Exercise" />
+        <argument
+            android:name="naam"
+            app:argType="string" />
+    </fragment>
+
 
 </navigation>

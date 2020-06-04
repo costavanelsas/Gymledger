@@ -1,23 +1,24 @@
-package com.example.gymledger.ui.addexercise
+package com.example.gymledger.ui.exercise.overview
 
 import androidx.annotation.NonNull
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gymledger.database.FirebaseQueryLiveData
-import com.example.gymledger.model.AddExercise
+import com.example.gymledger.model.Exercise
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
- * Created by Costa van Elsas on 21-5-2020.
+ * Created by Costa van Elsas on 14-5-2020.
  */
-class AddViewModel : ViewModel() {
+class ExerciseViewModel : ViewModel() {
+
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private val liveData: FirebaseQueryLiveData = FirebaseQueryLiveData(DATABASE_REF)
-    private val addExerciseLiveData = MediatorLiveData<List<AddExercise>>()
+    val exerciseLiveData = MediatorLiveData<List<Exercise>>()
 
     companion object {
         private const val DATABASE_KEY = "exercise"
@@ -25,30 +26,30 @@ class AddViewModel : ViewModel() {
     }
 
     init {
-        addExerciseLiveData.addSource(
+        exerciseLiveData.addSource(
             liveData
         ) { dataSnapshot ->
             if (dataSnapshot != null) {
                 mainScope.launch {
-                    val list = ArrayList<AddExercise>()
+                    val list = ArrayList<Exercise>()
 
                     dataSnapshot.children.forEach {
-                        val item: AddExercise? = it.getValue(AddExercise::class.java)
+                        val item: Exercise? = it.getValue(Exercise::class.java)
 
                         if (item != null)
                             list.add(item)
                     }
 
-                    addExerciseLiveData.postValue(list)
+                    exerciseLiveData.postValue(list)
                 }
             } else {
-                addExerciseLiveData.setValue(arrayListOf())
+                exerciseLiveData.setValue(arrayListOf())
             }
         }
     }
 
     @NonNull
-    fun getAll(): LiveData<List<AddExercise>> {
-        return addExerciseLiveData
+    fun getAll(): LiveData<List<Exercise>> {
+        return exerciseLiveData
     }
 }

@@ -18,6 +18,7 @@ abstract class AbstractAdapter<E>(
      * Prepares the view before passing it to the RecyclerView.
      */
     abstract inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         abstract fun bind(item: E)
     }
 

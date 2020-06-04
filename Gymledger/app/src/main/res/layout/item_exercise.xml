@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvFaq"
+        android:id="@+id/cvExercise"
         style="@style/AppTheme.Widget.CardView.ItemView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,26 +17,28 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
-                style="@style/AppTheme.Layout"
+            <ImageView
+                android:id="@+id/ivExercise"
+                style="@style/AppTheme.Widget.CardView.Image"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="@dimen/card_image_size"
+                android:contentDescription="@string/description_exercise_image"
+                tools:srcCompat="@tools:sample/avatars" />
 
                 <TextView
                     android:id="@+id/tvExercise"
                     style="@style/AppTheme.Widget.CardView.Title"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/tvBeschrijving"
                     style="@style/AppTheme.Widget.CardView.Body"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_view_margin"/>
 
-        </LinearLayout>
+            </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

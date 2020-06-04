@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.exercise.ExerciseFragment">
+    tools:context=".ui.exercise.overview.ExerciseFragment">
 
     <ProgressBar
         android:id="@+id/pbActivity"
@@ -25,16 +25,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/exercise"
-        app:layout_constraintBottom_toBottomOf="@+id/rvExercise"
-        app:layout_constraintStart_toStartOf="@+id/rvExercise"
-        app:layout_constraintTop_toBottomOf="@+id/rvExercise" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

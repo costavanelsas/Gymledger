@@ -1,15 +1,13 @@
-package com.example.gymledger.ui.exercise
+package com.example.gymledger.ui.exercise.overview
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymledger.R
@@ -19,11 +17,13 @@ import kotlinx.android.synthetic.main.exercise_fragment.*
 /**
  * Created by Costa van Elsas on 14-5-2020.
  */
-
 class ExerciseFragment : Fragment() {
 
     private val exercise = arrayListOf<Exercise>()
-    private val exerciseAdapter = ExerciseAdapter(exercise)
+    private val exerciseAdapter =
+        ExerciseAdapter(
+            exercise
+        ) { exercise -> onExerciseClick(exercise) }
     private lateinit var exerciseViewModel: ExerciseViewModel
     private var recycler_view: RecyclerView? = null
 
@@ -48,9 +48,6 @@ class ExerciseFragment : Fragment() {
      * Prepares the views inside this activity.
      */
     private fun initViews() {
-//        rvExercise.layoutManager = LinearLayoutManager(context)
-//        rvExercise.adapter = exerciseAdapter
-
         recycler_view = view?.findViewById(R.id.rvExercise)
         recycler_view?.layoutManager = LinearLayoutManager(context)
         recycler_view?.adapter = exerciseAdapter
@@ -60,7 +57,8 @@ class ExerciseFragment : Fragment() {
      * Prepares the data needed for this activity.
      */
     private fun initViewModel() {
-        exerciseViewModel = ViewModelProvider(this@ExerciseFragment).get(ExerciseViewModel::class.java)
+        exerciseViewModel =
+            ViewModelProvider(this@ExerciseFragment).get(ExerciseViewModel::class.java)
 
         val liveData = exerciseViewModel.getAll()
 
@@ -75,4 +73,9 @@ class ExerciseFragment : Fragment() {
         })
     }
 
+    private fun onExerciseClick(exercise: Exercise) {
+        val action = ExerciseFragmentDirections.actionExerciseFragmentToExerciseDetailFragment(
+            exercise, exercise.naam)
+        findNavController().navigate(action)
+    }
 }
