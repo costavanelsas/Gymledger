@@ -1,5 +1,6 @@
 package com.example.gymledger.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.gymledger.R
+import com.example.gymledger.ui.Measurements.MeasurementFragment
+import kotlinx.android.synthetic.main.fragment_measurement.*
+import kotlinx.android.synthetic.main.home_fragment.*
 
 /**
  * Created by Costa van Elsas on 14-5-2020.
@@ -30,6 +34,11 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
+
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 }

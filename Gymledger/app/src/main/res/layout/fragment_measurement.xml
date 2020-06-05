@@ -1,14 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Measurements.MeasurementFragment">
+    tools:context="ui.Measurements.MeasurementFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <EditText
+        android:id="@+id/etFatGoal"
+        android:layout_width="214dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:autofillHints=""
+        android:ems="10"
+        app:layout_constraintStart_toEndOf="@+id/tvFatGoal"
+        app:layout_constraintTop_toBottomOf="@+id/etNotes" />
+
+    <Button
+        android:id="@+id/buttonEditMeasurements"
+        android:layout_width="142dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="132dp"
+        android:layout_marginBottom="80dp"
+        android:backgroundTint="#88C590"
+        android:text="@string/edit_measurements"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/editTextWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="102dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:text="@string/name"
+        app:layout_constraintStart_toEndOf="@+id/tvWeight"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextFatPercentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="13dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/description"
+        app:layout_constraintStart_toEndOf="@+id/tvFatPercentage"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWeight" />
+
+    <EditText
+        android:id="@+id/editTextImageMeasurement"
+        android:layout_width="214dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="14dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:text="@string/image_url"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/editTextFatPercentage" />
+
+    <EditText
+        android:id="@+id/etMuscleMass"
+        android:layout_width="214dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="13dp"
+        android:autofillHints=""
+        android:ems="10"
+        app:layout_constraintStart_toEndOf="@+id/tvMusclemass"
+        app:layout_constraintTop_toBottomOf="@+id/editTextImageMeasurement" />
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/tvWeight"
+        android:layout_width="81dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="35dp"
+        android:text="@string/weight"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/editTextWeight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tvFatPercentage"
+        android:layout_width="141dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/fat_percentage"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWeight" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="116dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/image_url"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFatPercentage" />
+
+    <TextView
+        android:id="@+id/tvMusclemass"
+        android:layout_width="137dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="34dp"
+        android:text="@string/musclemass"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/tvWeightGoal"
+        android:layout_width="137dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="46dp"
+        android:text="@string/weigtgoal"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMusclemass" />
+
+    <TextView
+        android:id="@+id/tvNotes"
+        android:layout_width="137dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/notes"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWeightGoal" />
+
+    <TextView
+        android:id="@+id/tvFatGoal"
+        android:layout_width="137dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="37dp"
+        android:text="@string/fat_goal"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNotes" />
+
+    <EditText
+        android:id="@+id/etWeightGoal"
+        android:layout_width="214dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="18dp"
+        android:autofillHints=""
+        android:ems="10"
+        app:layout_constraintStart_toEndOf="@+id/tvWeightGoal"
+        app:layout_constraintTop_toBottomOf="@+id/etMuscleMass" />
+
+    <EditText
+        android:id="@+id/etNotes"
+        android:layout_width="214dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:autofillHints=""
+        android:ems="10"
+        app:layout_constraintStart_toEndOf="@+id/tvNotes"
+        app:layout_constraintTop_toBottomOf="@+id/etWeightGoal" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

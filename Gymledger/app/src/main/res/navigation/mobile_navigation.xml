@@ -12,6 +12,12 @@
         tools:layout="@layout/home_fragment">
     </fragment>
     <fragment
+        android:id="@+id/nav_measurements"
+        android:name="com.example.gymledger.ui.Measurements.MeasurementFragment"
+        android:label="@string/measurements"
+        tools:layout="@layout/fragment_measurement">
+    </fragment>
+    <fragment
         android:id="@+id/nav_exercise"
         android:name="com.example.gymledger.ui.exercise.overview.ExerciseFragment"
         android:label="@string/exercise"

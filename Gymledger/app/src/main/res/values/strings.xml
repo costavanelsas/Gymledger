@@ -24,4 +24,12 @@
     <string name="exercisee">Exercise:</string>
     <string name="desription">Desription:</string>
     <string name="image_urls">Image (URL):</string>
+    <string name="measurements">measurements</string>
+    <string name="weight">weight</string>
+    <string name="fat_percentage">"fat percentage: "</string>
+    <string name="musclemass">Muscle mass %:</string>
+    <string name="weigtgoal">Weight goal</string>
+    <string name="edit_measurements">Edit measurements</string>
+    <string name="notes">"notes: "</string>
+    <string name="fat_goal">fat goal:</string>
 </resources>
