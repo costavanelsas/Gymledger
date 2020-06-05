@@ -9,5 +9,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class AddExercise(
     val naam: String = "",
-    val beschrijving: String = ""
+    val beschrijving: String = "",
+    var uuid: String = ""
 ) : Parcelable

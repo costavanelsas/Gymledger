@@ -1,5 +1,6 @@
 package com.example.gymledger.ui.exercise.overview
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +12,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymledger.R
+import com.example.gymledger.model.AddExercise
 import com.example.gymledger.model.Exercise
 import kotlinx.android.synthetic.main.exercise_fragment.*
+import kotlinx.android.synthetic.main.item_fab.*
 
 /**
  * Created by Costa van Elsas on 14-5-2020.
@@ -37,6 +40,11 @@ class ExerciseFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        fab.setOnClickListener{
+            val intent = Intent(context, com.example.gymledger.ui.exercise.add.AddExercise::class.java)
+            startActivity(intent)
+        }
 
         exerciseViewModel = ViewModelProvider(this).get(ExerciseViewModel::class.java)
 

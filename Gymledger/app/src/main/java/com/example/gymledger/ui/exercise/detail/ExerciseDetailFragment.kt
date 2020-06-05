@@ -1,5 +1,6 @@
 package com.example.gymledger.ui.exercise.detail
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -15,6 +17,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.gymledger.R
 import com.example.gymledger.extention.observeNonNull
+import com.example.gymledger.model.AddExercise
 import com.example.gymledger.model.Exercise
 import kotlinx.android.synthetic.main.fragment_exercise_detail.*
 import kotlinx.android.synthetic.main.item_exercise.*
@@ -59,6 +62,10 @@ class ExerciseDetailFragment : Fragment() {
             .apply(reqOpt)
             .placeholder(ColorDrawable(Color.WHITE))
             .into(ivExercise2)
+
+        tvDetailNaam.text = exercise.naam
+        tvContent.text = exercise.beschrijving
+
     }
 
     /**

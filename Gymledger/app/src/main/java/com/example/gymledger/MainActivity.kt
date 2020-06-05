@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        initViews()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -52,7 +51,4 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    private fun initViews() {
-
-    }
 }

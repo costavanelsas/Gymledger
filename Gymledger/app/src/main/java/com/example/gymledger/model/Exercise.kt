@@ -1,5 +1,6 @@
 package com.example.gymledger.model
 
+import android.os.ParcelUuid
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 

@@ -13,8 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.exercise.overview.ExerciseFragment" />
-        <activity android:name=".ui.addexercise.AddActivity" />
+        <activity
+            android:name=".ui.exercise.add.AddExercise"
+            android:label="@string/add_exercise" />
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

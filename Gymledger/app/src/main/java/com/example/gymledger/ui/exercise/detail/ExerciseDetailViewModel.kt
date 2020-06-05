@@ -11,7 +11,7 @@ class ExerciseDetailViewModel : ViewModel() {
     val exercise = MutableLiveData<Exercise>()
 
     /**
-     * Keeps track of currently selected department for the detail view.
+     * Keeps track of currently selected exercise for the detail view.
      */
     fun initExercise(exercise: Exercise) {
         this.exercise.value = exercise

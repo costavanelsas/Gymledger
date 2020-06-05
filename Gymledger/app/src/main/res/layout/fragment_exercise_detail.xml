@@ -10,22 +10,38 @@
         android:id="@+id/ivExercise2"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:scaleType="centerCrop"
         android:contentDescription="@string/description_exercise_image"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/tvDetailNaam"
+        android:layout_width="278dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/exercise"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivExercise2" />
+
     <ScrollView
-        android:layout_width="398dp"
-        android:layout_height="500dp"
-        android:layout_marginBottom="16dp"
+        android:id="@+id/scrollView2"
+        android:layout_width="299dp"
+        android:layout_height="281dp"
         android:fillViewport="true"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivExercise2">
 
         <TextView
             android:id="@+id/tvContent"
