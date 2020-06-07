@@ -33,4 +33,10 @@
     <string name="add">Add</string>
     <string name="kg">kg</string>
     <string name="percent">%</string>
+    <string name="add_measurements">Add measurements</string>
+    <string name="date_added">Date added</string>
+    <string name="measure_date">Measure date:</string>
+    <string name="year">year</string>
+    <string name="day">day</string>
+    <string name="month">month</string>
 </resources>

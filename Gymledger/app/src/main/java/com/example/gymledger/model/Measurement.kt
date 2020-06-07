@@ -4,6 +4,7 @@ import android.media.Image
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 /**
  * Created by Costa van Elsas on 5-6-2020.
@@ -30,6 +31,9 @@ data class Measurement (
 
     @ColumnInfo(name = "image")
     var image: String,
+
+    @ColumnInfo(name = "date_added")
+    var dateAdded: Date,
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

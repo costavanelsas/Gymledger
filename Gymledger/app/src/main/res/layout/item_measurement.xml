@@ -8,35 +8,157 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cvMeasurement"
         style="@style/AppTheme.Widget.CardView.ItemView"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="8dp"
+        app:contentPadding="16dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:focusable="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/ivMeasurement"
                 style="@style/AppTheme.Widget.CardView.Image"
-                android:layout_width="163dp"
-                android:layout_height="113dp"
+                android:layout_width="188dp"
+                android:layout_height="112dp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/activity_vertical_margin"
                 android:contentDescription="@string/description_exercise_image"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/tvMeasurement"
+                android:id="@+id/tvWeightCv"
                 style="@style/AppTheme.Widget.CardView.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:text="@string/weight"
+                android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/tvMeasurementKg"
+                android:id="@+id/tvMeasurementWeight"
                 style="@style/AppTheme.Widget.CardView.Body"
-                android:layout_width="wrap_content"
+                android:layout_width="74dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/default_view_margin" />
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/tvFatPercentageCv"
+                style="@style/AppTheme.Widget.CardView.Title"
+                android:layout_width="121dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:text="@string/fat_percentage"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tvMeasurementFatPercent"
+                style="@style/AppTheme.Widget.CardView.Body"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:layout_width="74dp"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"/>
+
+            <TextView
+                android:id="@+id/tvMusclemassCv"
+                style="@style/AppTheme.Widget.CardView.Title"
+                android:layout_width="109dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:text="@string/musclemass"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tvMusclemassCv2"
+                style="@style/AppTheme.Widget.CardView.Body"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:layout_width="74dp"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"/>
+
+            <TextView
+                android:id="@+id/tvMeasurementKgGoalCv"
+                style="@style/AppTheme.Widget.CardView.Title"
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:text="@string/weigtgoal"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tvMusclemassKgGoalCvBody"
+                style="@style/AppTheme.Widget.CardView.Body"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:layout_width="74dp"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"/>
+
+            <TextView
+                android:id="@+id/tvMeasurementFatGoalCv"
+                style="@style/AppTheme.Widget.CardView.Title"
+                android:layout_width="114dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:text="@string/fat_goal"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tvMeasurementFatGoalBody"
+                style="@style/AppTheme.Widget.CardView.Body"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:layout_width="74dp"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"/>
+
+            <TextView
+                android:id="@+id/tvMeasurementNotesCv"
+                style="@style/AppTheme.Widget.CardView.Title"
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:text="@string/notes"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tvMeasurementNotesBody"
+                style="@style/AppTheme.Widget.CardView.Body"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/default_view_margin"
+                android:textAlignment="center"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/tvDateAdded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/date_added"
+                android:textAlignment="textEnd" />
 
         </LinearLayout>
 

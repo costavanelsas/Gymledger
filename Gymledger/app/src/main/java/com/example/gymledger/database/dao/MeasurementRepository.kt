@@ -1,6 +1,7 @@
 package com.example.gymledger.database.dao
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import com.example.gymledger.model.Measurement
 
 /**
@@ -15,11 +16,16 @@ class MeasurementRepository (context: Context){
         measurementDao = database!!.measurementDao()
     }
 
-    suspend fun getAllMeasurements(): List<Measurement> = measurementDao.getAllMeasurements()
+    fun getAllMeasurements(): LiveData<List<Measurement>> = measurementDao.getAllMeasurements()
 
     suspend fun insertMeasurement(measurement: Measurement) = measurementDao.insertMeasurement(measurement)
 
     suspend fun deleteMeasurement(measurement: Measurement) = measurementDao.deleteMeasurement(measurement)
 
     suspend fun deleteAllMeasurements() = measurementDao.deleteAllMeasurements()
+
+    fun getMeasurements(): LiveData<List<Measurement>> {
+        return measurementDao.getAllMeasurements()
+    }
+
 }

@@ -1,31 +1,32 @@
 package com.example.gymledger.ui.measurements.add
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View.inflate
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.room.TypeConverters
 import com.example.gymledger.R
+import com.example.gymledger.database.Converters
 import com.example.gymledger.database.dao.MeasurementRepository
-import com.example.gymledger.model.Exercise
 import com.example.gymledger.model.Measurement
-import com.example.gymledger.ui.exercise.overview.ExerciseFragmentDirections
 import com.example.gymledger.ui.measurements.overview.MeasurementAdapter
 import com.example.gymledger.ui.measurements.overview.MeasurementFragment
-import kotlinx.android.synthetic.main.add_exercise_fragment.*
+import com.example.gymledger.ui.measurements.overview.MeasurementViewModel
 import kotlinx.android.synthetic.main.fragment_measurement.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by Costa van Elsas on 6-6-2020.
  */
+@TypeConverters(Converters::class)
 class AddMeasurement : AppCompatActivity() {
 
     private val measurementList = arrayListOf<Measurement>()
@@ -35,13 +36,14 @@ class AddMeasurement : AppCompatActivity() {
         )
     private lateinit var measurementRepository: MeasurementRepository
     private val mainScope = CoroutineScope(Dispatchers.Main)
+    private lateinit var measurementViewModel: MeasurementViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_measurement)
         supportActionBar?.title = getString(R.string.measurements)
 
-        measurementRepository = MeasurementRepository(this)
+        measurementViewModel = ViewModelProvider(this).get(MeasurementViewModel::class.java)
         btnSaveMeasurements.setOnClickListener {
             addMeasurement()
             onSaveClick()
@@ -51,19 +53,32 @@ class AddMeasurement : AppCompatActivity() {
     }
 
     private fun getListFromDatabase() {
-        mainScope.launch {
-            val measurementList = withContext(Dispatchers.IO) {
-                measurementRepository.getAllMeasurements()
-            }
+//        mainScope.launch {
+//            val measurementList = withContext(Dispatchers.IO) {
+//                measurementRepository.getAllMeasurements()
+//            }
+//            this@AddMeasurement.measurementList.clear()
+//            this@AddMeasurement.measurementList.addAll(measurementList)
+//            this@AddMeasurement.measurementAdapter.notifyDataSetChanged()
+//        }
+        measurementViewModel = ViewModelProvider(this).get(MeasurementViewModel::class.java)
+
+        measurementViewModel.measurements.observe(this, Observer { measurements ->
             this@AddMeasurement.measurementList.clear()
-            this@AddMeasurement.measurementList.addAll(measurementList)
-            this@AddMeasurement.measurementAdapter.notifyDataSetChanged()
-        }
+            this@AddMeasurement.measurementList.addAll(measurements)
+            measurementAdapter.notifyDataSetChanged()
+        })
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun addMeasurement() {
-        if (validateFields()) {
+        val concatenatedString = (etDay.text.toString() + "-" + etMonth.text.toString() + "-" + etYear.text.toString())
+        if (validateEmptyFields()) {
             mainScope.launch {
+                val date = SimpleDateFormat("dd-MM-yyyy")
+                date.isLenient = false
+                val parsedDate = date.parse(concatenatedString)
+
                 val measurement = Measurement(
                     weight = editTextWeight.text.toString().toInt(),
                     fat_percentage = editTextFatPercentage.text.toString().toInt() ,
@@ -71,11 +86,12 @@ class AddMeasurement : AppCompatActivity() {
                     weight_goal = etWeightGoal.text.toString().toInt(),
                     image = editTextImageMeasurement.text.toString(),
                     notes = etNotes.text.toString(),
-                    fat_goal = etFatGoal.text.toString().toInt()
+                    fat_goal = etFatGoal.text.toString().toInt(),
+                    dateAdded = parsedDate
                 )
 
                 withContext(Dispatchers.IO) {
-                    measurementRepository.insertMeasurement(measurement)
+                    measurementViewModel.insertMeasurement(measurement)
                 }
 
                 getListFromDatabase()
@@ -83,13 +99,51 @@ class AddMeasurement : AppCompatActivity() {
         }
     }
 
-    private fun validateFields(): Boolean {
-        return if (editTextWeight.text.toString().isNotBlank() && editTextFatPercentage.text.toString().isNotBlank()) {
-            true
-        } else {
-            Toast.makeText(this, "Please fill in the fields", Toast.LENGTH_SHORT).show()
-            false
+    private fun validateEmptyFields(): Boolean {
+        if (editTextWeight.text.toString().isBlank()) {
+            Toast.makeText(this,"Please fill in a weight"
+                , Toast.LENGTH_SHORT).show()
+            return false
         }
+
+        if (editTextFatPercentage.text.toString().isBlank()) {
+            Toast.makeText(this,"Please fill in a fat percentage"
+                , Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (etDay.text.toString().isBlank() || etMonth.text.toString().isBlank() ||
+            etYear.text.toString().isBlank()) {
+            Toast.makeText(this,"Please fill in a date"
+                , Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (editTextImageMeasurement.text.toString().isBlank()) {
+            Toast.makeText(this,"Please fill in an image"
+                , Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (etNotes.text.toString().isBlank()) {
+            Toast.makeText(this,"Please fill in some notes"
+                , Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (etWeightGoal.text.toString().isBlank()) {
+            Toast.makeText(this,"Please fill in a weight goal"
+                , Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (etFatGoal.text.toString().isBlank()) {
+            Toast.makeText(this,"Please fill in a weight goal"
+                , Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        return true
     }
 
     private fun onSaveClick() {

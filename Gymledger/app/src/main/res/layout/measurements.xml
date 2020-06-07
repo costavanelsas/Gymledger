@@ -8,23 +8,26 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMeasurementList"
-        android:layout_width="340dp"
-        android:layout_height="484dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="348dp"
+        android:layout_height="567dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddMeasurements"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.406" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnAddMeasurements"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="60dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="#84CC70"
         android:foregroundTint="#FFFFFF"
-        android:text="@string/add"
+        android:text="@string/add_measurements"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

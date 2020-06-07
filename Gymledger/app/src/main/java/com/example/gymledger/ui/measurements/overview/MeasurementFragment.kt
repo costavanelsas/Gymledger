@@ -4,7 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,7 +14,7 @@ import com.example.gymledger.R
 import com.example.gymledger.database.dao.MeasurementRepository
 import com.example.gymledger.model.Measurement
 import com.example.gymledger.ui.measurements.add.AddMeasurement
-import kotlinx.android.synthetic.main.fragment_measurement.*
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.measurements.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +30,7 @@ class MeasurementFragment : Fragment() {
         )
     private lateinit var measurementRepository: MeasurementRepository
     private val mainScope = CoroutineScope(Dispatchers.Main)
+    private lateinit var measurementViewModel: MeasurementViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,14 +67,22 @@ class MeasurementFragment : Fragment() {
     }
 
     private fun getListFromDatabase() {
-        mainScope.launch {
-            val measurementList = withContext(Dispatchers.IO) {
-                measurementRepository.getAllMeasurements()
-            }
+//        mainScope.launch {
+//            val measurementList = withContext(Dispatchers.IO) {
+//                measurementViewModel.getAllMeasurements()
+//            }
+//            this@MeasurementFragment.measurementList.clear()
+//            this@MeasurementFragment.measurementList.addAll(measurementList)
+//            this@MeasurementFragment.measurementAdapter.notifyDataSetChanged()
+//        }
+
+        measurementViewModel = ViewModelProvider(this).get(MeasurementViewModel::class.java)
+
+        measurementViewModel.measurements.observe(viewLifecycleOwner, Observer { measurements ->
             this@MeasurementFragment.measurementList.clear()
-            this@MeasurementFragment.measurementList.addAll(measurementList)
-            this@MeasurementFragment.measurementAdapter.notifyDataSetChanged()
-        }
+            this@MeasurementFragment.measurementList.addAll(measurements)
+            measurementAdapter.notifyDataSetChanged()
+        })
     }
 
     private fun createItemTouchHelper(): ItemTouchHelper {
@@ -89,11 +99,20 @@ class MeasurementFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 val measurementToDelete = measurementList[position]
-                mainScope.launch {
-                    withContext(Dispatchers.IO) {
-                        measurementRepository.deleteMeasurement(measurementToDelete)
+
+                if(direction == ItemTouchHelper.LEFT) {
+                    mainScope.launch {
+                        withContext(Dispatchers.IO) {
+                            measurementViewModel.deleteMeasurement(measurementToDelete)
+                            Snackbar.make(viewHolder.itemView,
+                                "Successfully deleted measurement", Snackbar.LENGTH_LONG)
+                                .setAction("UNDO"){
+                                    measurementViewModel.insertMeasurement(measurementToDelete)
+                                }
+                                .show()
+                        }
+                        getListFromDatabase()
                     }
-                    getListFromDatabase()
                 }
             }
         }

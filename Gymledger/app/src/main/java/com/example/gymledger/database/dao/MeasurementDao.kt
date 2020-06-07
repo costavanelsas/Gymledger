@@ -1,5 +1,6 @@
 package com.example.gymledger.database.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -13,7 +14,7 @@ import com.example.gymledger.model.Measurement
 interface MeasurementDao {
 
     @Query("SELECT * FROM measurement_table")
-    suspend fun getAllMeasurements(): List<Measurement>
+    fun getAllMeasurements(): LiveData<List<Measurement>>
 
     @Insert
     suspend fun insertMeasurement(measurement: Measurement)
