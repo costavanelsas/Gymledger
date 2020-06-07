@@ -31,10 +31,17 @@ class MeasurementFragment : Fragment() {
     private lateinit var measurementRepository: MeasurementRepository
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private lateinit var measurementViewModel: MeasurementViewModel
+    private val savedMeasurements = arrayListOf<Measurement>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         measurementRepository = MeasurementRepository(requireContext())
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_measurements, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,15 +74,6 @@ class MeasurementFragment : Fragment() {
     }
 
     private fun getListFromDatabase() {
-//        mainScope.launch {
-//            val measurementList = withContext(Dispatchers.IO) {
-//                measurementViewModel.getAllMeasurements()
-//            }
-//            this@MeasurementFragment.measurementList.clear()
-//            this@MeasurementFragment.measurementList.addAll(measurementList)
-//            this@MeasurementFragment.measurementAdapter.notifyDataSetChanged()
-//        }
-
         measurementViewModel = ViewModelProvider(this).get(MeasurementViewModel::class.java)
 
         measurementViewModel.measurements.observe(viewLifecycleOwner, Observer { measurements ->
@@ -119,13 +117,22 @@ class MeasurementFragment : Fragment() {
         return ItemTouchHelper(callback)
     }
 
-    private fun deleteAllMeasurements() {
-        mainScope.launch {
-            withContext(Dispatchers.IO) {
-                measurementRepository.deleteAllMeasurements()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_delete_icon -> {
+                savedMeasurements.clear()
+                savedMeasurements.addAll(measurementList)
+                measurementViewModel.deleteAllMeasurements()
+                Snackbar.make(rvMeasurementList, "Successfully deleted measurements", Snackbar.LENGTH_LONG)
+                    .setAction("UNDO") {
+                        savedMeasurements.forEach {
+                            measurementViewModel.insertMeasurement(it)
+                        }
+                    }
+                    .show()
+                true
             }
-            getListFromDatabase()
+            else -> super.onOptionsItemSelected(item)
         }
     }
-
 }

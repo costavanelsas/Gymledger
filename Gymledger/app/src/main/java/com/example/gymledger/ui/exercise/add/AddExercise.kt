@@ -34,13 +34,18 @@ class AddExercise : AppCompatActivity() {
             return
         }
 
+        if(description.isEmpty()){
+            editTextTextPersonName.error = "Please fill in a name"
+            return
+        }
+
         val ref = FirebaseDatabase.getInstance().getReference("exercise")
         val exerciseId = ref.push().key
         val postData = Exercise(name, description, image)
 
         if (exerciseId != null) {
             ref.child(exerciseId).setValue(postData).addOnCompleteListener {
-                Toast.makeText(applicationContext, "Exercise is toegevoegd", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Exercise is added", Toast.LENGTH_LONG).show()
             }
         }
 

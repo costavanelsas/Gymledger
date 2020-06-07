@@ -34,7 +34,6 @@ class AddMeasurement : AppCompatActivity() {
         MeasurementAdapter(
             measurementList
         )
-    private lateinit var measurementRepository: MeasurementRepository
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private lateinit var measurementViewModel: MeasurementViewModel
 
@@ -47,20 +46,16 @@ class AddMeasurement : AppCompatActivity() {
         btnSaveMeasurements.setOnClickListener {
             addMeasurement()
             onSaveClick()
-            val intent = Intent(this, MeasurementFragment::class.java)
-            startActivity(intent)
+            startActivity()
         }
     }
 
+    private fun startActivity() {
+        val intent = Intent(this, MeasurementFragment::class.java)
+        startActivity(intent)
+    }
+
     private fun getListFromDatabase() {
-//        mainScope.launch {
-//            val measurementList = withContext(Dispatchers.IO) {
-//                measurementRepository.getAllMeasurements()
-//            }
-//            this@AddMeasurement.measurementList.clear()
-//            this@AddMeasurement.measurementList.addAll(measurementList)
-//            this@AddMeasurement.measurementAdapter.notifyDataSetChanged()
-//        }
         measurementViewModel = ViewModelProvider(this).get(MeasurementViewModel::class.java)
 
         measurementViewModel.measurements.observe(this, Observer { measurements ->
@@ -138,7 +133,7 @@ class AddMeasurement : AppCompatActivity() {
         }
 
         if (etFatGoal.text.toString().isBlank()) {
-            Toast.makeText(this,"Please fill in a weight goal"
+            Toast.makeText(this,"Please fill in a fat goal"
                 , Toast.LENGTH_SHORT).show()
             return false
         }
