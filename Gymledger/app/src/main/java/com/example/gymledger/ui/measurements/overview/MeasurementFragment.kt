@@ -1,8 +1,8 @@
-package com.example.gymledger.ui.Measurements
+package com.example.gymledger.ui.measurements.overview
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.view.View.inflate
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gymledger.R
 import com.example.gymledger.database.dao.MeasurementRepository
 import com.example.gymledger.model.Measurement
+import com.example.gymledger.ui.measurements.add.AddMeasurement
 import kotlinx.android.synthetic.main.fragment_measurement.*
 import kotlinx.android.synthetic.main.measurements.*
 import kotlinx.coroutines.CoroutineScope
@@ -23,14 +24,20 @@ class MeasurementFragment : Fragment() {
 
     private val measurementList = arrayListOf<Measurement>()
     private val measurementAdapter =
-        MeasurementAdapter(measurementList)
+        MeasurementAdapter(
+            measurementList
+        )
     private lateinit var measurementRepository: MeasurementRepository
     private val mainScope = CoroutineScope(Dispatchers.Main)
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         measurementRepository = MeasurementRepository(requireContext())
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         initViews()
     }
 
@@ -43,13 +50,18 @@ class MeasurementFragment : Fragment() {
     }
 
     private fun initViews() {
-        rvMeasurementList.layoutManager = LinearLayoutManager(context,
-            LinearLayoutManager.VERTICAL, false)
+        rvMeasurementList.layoutManager =
+            LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
         rvMeasurementList.adapter = measurementAdapter
-        rvMeasurementList.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        rvMeasurementList.addItemDecoration(DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL))
         createItemTouchHelper().attachToRecyclerView(rvMeasurementList)
         getListFromDatabase()
-        buttonEditMeasurements.setOnClickListener { addMeasurement() }
+
+        btnAddMeasurements.setOnClickListener{
+            val intent = Intent(requireContext(), AddMeasurement::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun getListFromDatabase() {
@@ -60,37 +72,6 @@ class MeasurementFragment : Fragment() {
             this@MeasurementFragment.measurementList.clear()
             this@MeasurementFragment.measurementList.addAll(measurementList)
             this@MeasurementFragment.measurementAdapter.notifyDataSetChanged()
-        }
-    }
-
-    private fun validateFields(): Boolean {
-        return if (editTextWeight.text.toString().isNotBlank() && editTextFatPercentage.text.toString().isNotBlank()) {
-            true
-        } else {
-            Toast.makeText(context, "Please fill in the fields", Toast.LENGTH_SHORT).show()
-            false
-        }
-    }
-
-    private fun addMeasurement() {
-        if (validateFields()) {
-            mainScope.launch {
-                val measurement = Measurement(
-                    weight = editTextWeight.text.toString().toFloat(),
-                    fat_percentage = editTextFatPercentage.text.toString().toFloat() ,
-                    muscle_mass = etMuscleMass.text.toString().toFloat(),
-                    weight_goal = etWeightGoal.text.toString().toFloat(),
-                    image = editTextImageMeasurement.text.toString(),
-                    notes = etNotes.text.toString(),
-                    fat_goal = etFatGoal.text.toString().toFloat()
-                )
-
-                withContext(Dispatchers.IO) {
-                    measurementRepository.insertMeasurement(measurement)
-                }
-
-                getListFromDatabase()
-            }
         }
     }
 

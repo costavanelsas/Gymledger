@@ -11,19 +11,19 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "measurement_table")
 data class Measurement (
     @ColumnInfo(name = "weight")
-    var weight: Float,
+    var weight: Int,
 
     @ColumnInfo(name = "fat_percentage")
-    var fat_percentage: Float,
+    var fat_percentage: Int,
 
     @ColumnInfo(name = "muscle_mass")
-    var muscle_mass: Float,
+    var muscle_mass: Int,
 
     @ColumnInfo(name = "weight_goal")
-    var weight_goal: Float,
+    var weight_goal: Int,
 
     @ColumnInfo(name = "fat_goal")
-    var fat_goal: Float,
+    var fat_goal: Int,
 
     @ColumnInfo(name = "notes")
     var notes: String,

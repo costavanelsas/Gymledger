@@ -1,6 +1,5 @@
 package com.example.gymledger.ui.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.example.gymledger.R
-import com.example.gymledger.ui.Measurements.MeasurementFragment
-import kotlinx.android.synthetic.main.fragment_measurement.*
-import kotlinx.android.synthetic.main.home_fragment.*
 
 /**
  * Created by Costa van Elsas on 14-5-2020.

@@ -44,7 +44,6 @@ class AddExercise : AppCompatActivity() {
             }
         }
 
-
     }
 
 }

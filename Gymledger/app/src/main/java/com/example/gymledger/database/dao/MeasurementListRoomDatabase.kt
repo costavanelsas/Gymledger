@@ -9,7 +9,7 @@ import com.example.gymledger.model.Measurement
 /**
  * Created by Costa van Elsas on 5-6-2020.
  */
-@Database(entities = [Measurement::class], version = 1, exportSchema = false)
+@Database(entities = [Measurement::class], version = 2)
 abstract class MeasurementListRoomDatabase : RoomDatabase() {
 
     abstract fun measurementDao(): MeasurementDao
@@ -25,7 +25,7 @@ abstract class MeasurementListRoomDatabase : RoomDatabase() {
                 synchronized(MeasurementListRoomDatabase::class.java) {
                     if (measurementListRoomDatabaseinstance == null) {
                         measurementListRoomDatabaseinstance =
-                            Room.databaseBuilder(context.applicationContext,MeasurementListRoomDatabase::class.java, DATABASE_NAME).build()
+                            Room.databaseBuilder(context.applicationContext,MeasurementListRoomDatabase::class.java, DATABASE_NAME).fallbackToDestructiveMigration().build()
                     }
                 }
             }

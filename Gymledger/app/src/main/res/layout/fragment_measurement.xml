@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ui.Measurements.MeasurementFragment">
+    tools:context=".ui.measurements.overview.MeasurementFragment">
 
     <EditText
         android:id="@+id/etFatGoal"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toBottomOf="@+id/etNotes" />
 
     <Button
-        android:id="@+id/buttonEditMeasurements"
+        android:id="@+id/btnSaveMeasurements"
         android:layout_width="142dp"
         android:layout_height="64dp"
         android:layout_marginEnd="132dp"
@@ -37,7 +37,6 @@
         android:layout_marginTop="102dp"
         android:autofillHints=""
         android:ems="10"
-        android:text="@string/name"
         app:layout_constraintStart_toEndOf="@+id/tvWeight"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +49,6 @@
         android:autofillHints=""
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/description"
         app:layout_constraintStart_toEndOf="@+id/tvFatPercentage"
         app:layout_constraintTop_toBottomOf="@+id/editTextWeight" />
 
@@ -62,7 +60,6 @@
         android:layout_marginTop="14dp"
         android:autofillHints=""
         android:ems="10"
-        android:text="@string/image_url"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/editTextFatPercentage" />
 
