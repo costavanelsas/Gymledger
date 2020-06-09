@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.add_exercise_fragment.*
  */
 class AddExercise : AppCompatActivity() {
 
+    val ref = FirebaseDatabase.getInstance().getReference("exercise")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_exercise_fragment)
@@ -39,13 +41,13 @@ class AddExercise : AppCompatActivity() {
             return
         }
 
-        val ref = FirebaseDatabase.getInstance().getReference("exercise")
         val exerciseId = ref.push().key
         val postData = Exercise(name, description, image)
 
         if (exerciseId != null) {
             ref.child(exerciseId).setValue(postData).addOnCompleteListener {
                 Toast.makeText(applicationContext, "Exercise is added", Toast.LENGTH_LONG).show()
+                finish()
             }
         }
 

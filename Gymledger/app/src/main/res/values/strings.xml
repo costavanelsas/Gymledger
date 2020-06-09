@@ -26,13 +26,13 @@
     <string name="weight">Weight:</string>
     <string name="fat_percentage">Fat percentage:</string>
     <string name="musclemass">Muscle mass:</string>
-    <string name="weigtgoal">Weight goal</string>
+    <string name="weigtgoal">Weight goal:</string>
     <string name="edit_measurements">Edit measurements</string>
     <string name="notes">Notes:</string>
     <string name="fat_goal">Fat goal:</string>
     <string name="add">Add</string>
     <string name="kg">kg</string>
-    <string name="percent">%</string>
+    <string name="percent">0–100%</string>
     <string name="add_measurements">Add measurement</string>
     <string name="date_added">Date added</string>
     <string name="measure_date">Measure date:</string>
@@ -40,4 +40,5 @@
     <string name="day">day</string>
     <string name="month">month</string>
     <string name="delete">delete all</string>
+    <string name="placeholders">"Max: Reps: Sets: "</string>
 </resources>

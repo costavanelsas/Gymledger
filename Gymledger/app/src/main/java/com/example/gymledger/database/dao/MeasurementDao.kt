@@ -1,10 +1,8 @@
 package com.example.gymledger.database.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
+import com.example.gymledger.model.ExercisePersonalInfo
 import com.example.gymledger.model.Measurement
 
 /**
@@ -24,4 +22,5 @@ interface MeasurementDao {
 
     @Query("DELETE FROM measurement_table")
     suspend fun deleteAllMeasurements()
+
 }

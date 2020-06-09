@@ -1,19 +1,15 @@
 package com.example.gymledger.ui.measurements.add
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.TypeConverters
 import com.example.gymledger.R
 import com.example.gymledger.database.Converters
-import com.example.gymledger.database.dao.MeasurementRepository
 import com.example.gymledger.model.Measurement
 import com.example.gymledger.ui.measurements.overview.MeasurementAdapter
-import com.example.gymledger.ui.measurements.overview.MeasurementFragment
 import com.example.gymledger.ui.measurements.overview.MeasurementViewModel
 import kotlinx.android.synthetic.main.fragment_measurement.*
 import kotlinx.coroutines.CoroutineScope
@@ -21,7 +17,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * Created by Costa van Elsas on 6-6-2020.
@@ -45,14 +40,7 @@ class AddMeasurement : AppCompatActivity() {
         measurementViewModel = ViewModelProvider(this).get(MeasurementViewModel::class.java)
         btnSaveMeasurements.setOnClickListener {
             addMeasurement()
-            onSaveClick()
-            startActivity()
         }
-    }
-
-    private fun startActivity() {
-        val intent = Intent(this, MeasurementFragment::class.java)
-        startActivity(intent)
     }
 
     private fun getListFromDatabase() {
@@ -91,57 +79,78 @@ class AddMeasurement : AppCompatActivity() {
 
                 getListFromDatabase()
             }
+
+            finish()
+        } else {
+            return
         }
     }
 
     private fun validateEmptyFields(): Boolean {
+        val zero = 0
+        val hundred = 100
+        val maxDays = 31
+        val maxMonths = 12
+        val minYear = 1900
+        val maxYear = 9999
+
         if (editTextWeight.text.toString().isBlank()) {
-            Toast.makeText(this,"Please fill in a weight"
-                , Toast.LENGTH_SHORT).show()
+            editTextWeight.error = "Please fill in a weight"
             return false
         }
 
-        if (editTextFatPercentage.text.toString().isBlank()) {
-            Toast.makeText(this,"Please fill in a fat percentage"
-                , Toast.LENGTH_SHORT).show()
+        if (editTextFatPercentage.text.toString().isBlank() ||
+            editTextFatPercentage.text.toString().toInt() < zero ||
+            editTextFatPercentage.text.toString().toInt() > hundred
+        ) {
+            editTextFatPercentage.error = "Please fill in a fat percentage: 0-100%"
+            return false
+        }
+
+        if (editTextImageMeasurement.text.toString().isBlank()) {
+            editTextImageMeasurement.error = "Please fill in an image"
+            return false
+        }
+
+        if (etNotes.text.toString().isBlank()) {
+            etNotes.error = "Please fill in some notes"
+            return false
+        }
+
+        if (etWeightGoal.text.toString().isBlank()) {
+            etWeightGoal.error = "Please fill in a weight goal"
+            return false
+        }
+
+        if (etFatGoal.text.toString().isBlank()|| etFatGoal.text.toString().toInt() < zero ||
+            etFatGoal.text.toString().toInt() > hundred) {
+            etFatGoal.error = "Please fill in a fat percentage goal"
             return false
         }
 
         if (etDay.text.toString().isBlank() || etMonth.text.toString().isBlank() ||
             etYear.text.toString().isBlank()) {
-            Toast.makeText(this,"Please fill in a date"
-                , Toast.LENGTH_SHORT).show()
+            etDay.error = "Please fill in a day"
+            etMonth.error = "Please fill in a month"
+            etYear.error = "Please fill in a year"
             return false
         }
 
-        if (editTextImageMeasurement.text.toString().isBlank()) {
-            Toast.makeText(this,"Please fill in an image"
-                , Toast.LENGTH_SHORT).show()
+        if(etDay.text.toString().toInt() < zero || etDay.text.toString().toInt() > maxDays){
+            etDay.error = "Fill in a valid day"
             return false
         }
 
-        if (etNotes.text.toString().isBlank()) {
-            Toast.makeText(this,"Please fill in some notes"
-                , Toast.LENGTH_SHORT).show()
+        if(etMonth.text.toString().toInt() < zero || etMonth.text.toString().toInt() > maxMonths){
+            etMonth.error = "Fill in a valid month"
             return false
         }
 
-        if (etWeightGoal.text.toString().isBlank()) {
-            Toast.makeText(this,"Please fill in a weight goal"
-                , Toast.LENGTH_SHORT).show()
-            return false
-        }
-
-        if (etFatGoal.text.toString().isBlank()) {
-            Toast.makeText(this,"Please fill in a fat goal"
-                , Toast.LENGTH_SHORT).show()
+        if(etYear.text.toString().toInt() < minYear || etYear.text.toString().toInt() > maxYear){
+            etYear.error = "Fill in a valid year"
             return false
         }
 
         return true
-    }
-
-    private fun onSaveClick() {
-        Toast.makeText(this, "Your measurements are added!", Toast.LENGTH_SHORT).show()
     }
 }

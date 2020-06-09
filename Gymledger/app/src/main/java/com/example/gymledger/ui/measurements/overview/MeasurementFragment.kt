@@ -120,16 +120,18 @@ class MeasurementFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_delete_icon -> {
-                savedMeasurements.clear()
-                savedMeasurements.addAll(measurementList)
-                measurementViewModel.deleteAllMeasurements()
-                Snackbar.make(rvMeasurementList, "Successfully deleted measurements", Snackbar.LENGTH_LONG)
-                    .setAction("UNDO") {
-                        savedMeasurements.forEach {
-                            measurementViewModel.insertMeasurement(it)
+                if (measurementList.size != 0){
+                    savedMeasurements.clear()
+                    savedMeasurements.addAll(measurementList)
+                    measurementViewModel.deleteAllMeasurements()
+                    Snackbar.make(rvMeasurementList, "Successfully deleted measurements", Snackbar.LENGTH_LONG)
+                        .setAction("UNDO") {
+                            savedMeasurements.forEach {
+                                measurementViewModel.insertMeasurement(it)
+                            }
                         }
-                    }
-                    .show()
+                        .show()
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)

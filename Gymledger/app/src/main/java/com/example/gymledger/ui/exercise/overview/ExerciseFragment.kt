@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymledger.R
-import com.example.gymledger.model.AddExercise
 import com.example.gymledger.model.Exercise
 import kotlinx.android.synthetic.main.exercise_fragment.*
 import kotlinx.android.synthetic.main.item_fab.*
