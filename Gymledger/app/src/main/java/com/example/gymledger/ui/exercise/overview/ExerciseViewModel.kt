@@ -18,7 +18,7 @@ class ExerciseViewModel : ViewModel() {
 
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private val liveData: FirebaseQueryLiveData = FirebaseQueryLiveData(DATABASE_REF)
-    val exerciseLiveData = MediatorLiveData<List<Exercise>>()
+    private val exerciseLiveData = MediatorLiveData<List<Exercise>>()
 
     companion object {
         private const val DATABASE_KEY = "exercise"

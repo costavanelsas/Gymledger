@@ -20,18 +20,27 @@ class MeasurementViewModel(application: Application) : AndroidViewModel(applicat
 
     val measurements: LiveData<List<Measurement>> = measurementRepository.getAllMeasurements()
 
+    /**
+     * insert a measurement
+     */
     fun insertMeasurement(measurement: Measurement) {
         ioScope.launch {
             measurementRepository.insertMeasurement(measurement)
         }
     }
 
+    /**
+     * Delete a single measurement
+     */
     fun deleteMeasurement(measurement: Measurement) {
         ioScope.launch {
             measurementRepository.deleteMeasurement(measurement)
         }
     }
 
+    /**
+     * Delete all measurements
+     */
     fun deleteAllMeasurements() {
         ioScope.launch {
             measurementRepository.deleteAllMeasurements()

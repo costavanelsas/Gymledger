@@ -1,19 +1,21 @@
 package com.example.gymledger.ui.exercise.add
 
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gymledger.R
 import com.example.gymledger.model.Exercise
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.add_exercise_fragment.*
+import kotlinx.android.synthetic.main.fragment_measurement.*
 
 /**
  * Created by Costa van Elsas on 5-6-2020.
  */
 class AddExercise : AppCompatActivity() {
 
-    val ref = FirebaseDatabase.getInstance().getReference("exercise")
+    private val ref = FirebaseDatabase.getInstance().getReference("exercise")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,21 +25,28 @@ class AddExercise : AppCompatActivity() {
         buttonPost.setOnClickListener{
             postData()
         }
-
     }
 
+    /**
+     * method to post the data to firebase
+     */
     private fun postData(){
         val name = editTextTextPersonName.text.toString().trim()
         val description = editTextDescription.text.toString().trim()
         val image = editTextImage.text.toString().trim()
 
-        if(name.isEmpty()){
+        if(name.isBlank()){
             editTextTextPersonName.error = "Please fill in a name"
             return
         }
 
-        if(description.isEmpty()){
-            editTextTextPersonName.error = "Please fill in a name"
+        if(description.isBlank()){
+            editTextDescription.error = "Please fill in a description"
+            return
+        }
+
+        if(image.isBlank()){
+            editTextImage.error = "Please fill in a image URL"
             return
         }
 
@@ -50,7 +59,5 @@ class AddExercise : AppCompatActivity() {
                 finish()
             }
         }
-
     }
-
 }

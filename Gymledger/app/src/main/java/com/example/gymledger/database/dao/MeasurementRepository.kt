@@ -2,7 +2,6 @@ package com.example.gymledger.database.dao
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import com.example.gymledger.model.ExercisePersonalInfo
 import com.example.gymledger.model.Measurement
 
 /**

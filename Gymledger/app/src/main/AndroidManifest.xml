@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.gymledger">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,8 +15,6 @@
         <activity
             android:name=".ui.exercise.add.AddExercise"
             android:label="@string/add_exercise" />
-        <activity
-            android:name=".ui.measurements.overview.MeasurementFragment" />
         <activity
             android:name=".ui.measurements.add.AddMeasurement" />
         <activity android:name=".MainActivity"

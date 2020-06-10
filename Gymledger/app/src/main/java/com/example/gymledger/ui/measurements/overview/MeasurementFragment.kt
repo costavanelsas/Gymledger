@@ -58,6 +58,9 @@ class MeasurementFragment : Fragment() {
         return inflater.inflate(R.layout.measurements, container, false)
     }
 
+    /**
+     * Prepares the views inside this fragment.
+     */
     private fun initViews() {
         rvMeasurementList.layoutManager =
             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
@@ -73,6 +76,9 @@ class MeasurementFragment : Fragment() {
 
     }
 
+    /**
+     * get the list from the database and add it tot the list
+     */
     private fun getListFromDatabase() {
         measurementViewModel = ViewModelProvider(this).get(MeasurementViewModel::class.java)
 
@@ -83,6 +89,9 @@ class MeasurementFragment : Fragment() {
         })
     }
 
+    /**
+     * method for swiping and deleting in the RV
+     */
     private fun createItemTouchHelper(): ItemTouchHelper {
         val callback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
@@ -117,6 +126,9 @@ class MeasurementFragment : Fragment() {
         return ItemTouchHelper(callback)
     }
 
+    /**
+     * when a record is deleted create the UNDO Snackbar otherwise delete
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_delete_icon -> {

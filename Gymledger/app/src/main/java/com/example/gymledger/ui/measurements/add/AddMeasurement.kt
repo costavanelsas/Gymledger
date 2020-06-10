@@ -2,6 +2,7 @@ package com.example.gymledger.ui.measurements.add
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +22,14 @@ import java.text.SimpleDateFormat
 /**
  * Created by Costa van Elsas on 6-6-2020.
  */
+
+const val ZERO = 0
+const val HUNDRED = 100
+const val MAX_DAYS = 31
+const val MAX_MONTHS = 12
+const val MIN_YEAR = 1900
+const val MAX_YEAR = 9999
+
 @TypeConverters(Converters::class)
 class AddMeasurement : AppCompatActivity() {
 
@@ -38,11 +47,16 @@ class AddMeasurement : AppCompatActivity() {
         supportActionBar?.title = getString(R.string.measurements)
 
         measurementViewModel = ViewModelProvider(this).get(MeasurementViewModel::class.java)
+
+        //when the button is clicked link to addMeasurement()
         btnSaveMeasurements.setOnClickListener {
             addMeasurement()
         }
     }
 
+    /**
+     * get the list from the database and add it tot the list
+     */
     private fun getListFromDatabase() {
         measurementViewModel = ViewModelProvider(this).get(MeasurementViewModel::class.java)
 
@@ -53,9 +67,15 @@ class AddMeasurement : AppCompatActivity() {
         })
     }
 
+    /**
+     * method for when the measurement is added
+     */
     @SuppressLint("SimpleDateFormat")
     private fun addMeasurement() {
+        //string for the date
         val concatenatedString = (etDay.text.toString() + "-" + etMonth.text.toString() + "-" + etYear.text.toString())
+
+        //check if the fields are valid
         if (validateEmptyFields()) {
             mainScope.launch {
                 val date = SimpleDateFormat("dd-MM-yyyy")
@@ -86,71 +106,82 @@ class AddMeasurement : AppCompatActivity() {
         }
     }
 
+    /**
+     * validate all fields by calling the methods
+     */
     private fun validateEmptyFields(): Boolean {
-        val zero = 0
-        val hundred = 100
-        val maxDays = 31
-        val maxMonths = 12
-        val minYear = 1900
-        val maxYear = 9999
+        return validateField(editTextWeight, "Weight")
+                && validatePercent(editTextFatPercentage)
+                && validateField(editTextFatPercentage, "fat percentage")
+                && validateField(editTextImageMeasurement, "Image")
+                && validatePercent(etMuscleMass)
+                && validateField(etMuscleMass, "Muscle mass")
+                && validateField(etWeightGoal, "weight goal")
+                && validateField(etNotes, "Notes" )
+                && validatePercent(etFatGoal)
+                && validateField(etFatGoal, "Fat goal")
+                && validateDay(etDay)
+                && validateMonth(etMonth)
+                && validateYear(etYear)
+                && validateField(etDay, "date")
+                && validateField(etMonth, "month")
+                && validateField(etYear, "year")
+    }
 
-        if (editTextWeight.text.toString().isBlank()) {
-            editTextWeight.error = "Please fill in a weight"
+    /**
+     * check if the fields are not empty
+     */
+    private fun validateField(theInput: EditText, fieldName: String): Boolean {
+        if(theInput.text.toString().isBlank()){
+            theInput.error = "Fill in a valid $fieldName"
             return false
         }
+        return true
+    }
 
-        if (editTextFatPercentage.text.toString().isBlank() ||
-            editTextFatPercentage.text.toString().toInt() < zero ||
-            editTextFatPercentage.text.toString().toInt() > hundred
-        ) {
-            editTextFatPercentage.error = "Please fill in a fat percentage: 0-100%"
+    /**
+     * check if the percentage fields is 0-100
+     */
+    private fun validatePercent(theInput: EditText): Boolean {
+        if (theInput.text.toString().isBlank() ||
+            theInput.text.toString().toInt() < ZERO ||
+            theInput.text.toString().toInt() > HUNDRED) {
+            theInput.error = "Fill in a valid percentage"
             return false
         }
+        return true
+    }
 
-        if (editTextImageMeasurement.text.toString().isBlank()) {
-            editTextImageMeasurement.error = "Please fill in an image"
+    /**
+     * check if the year is a correct year
+     */
+    private fun validateYear(theInput: EditText): Boolean {
+        if(theInput.text.toString().toInt() < MIN_YEAR || theInput.text.toString().toInt() > MAX_YEAR){
+            theInput.error = "Fill in a valid year"
             return false
         }
+        return true
+    }
 
-        if (etNotes.text.toString().isBlank()) {
-            etNotes.error = "Please fill in some notes"
+    /**
+     * check if the month is a correct month
+     */
+    private fun validateMonth(theInput: EditText): Boolean {
+        if(theInput.text.toString().toInt() < ZERO || theInput.text.toString().toInt() > MAX_MONTHS){
+            theInput.error = "Fill in a valid month"
             return false
         }
+        return true
+    }
 
-        if (etWeightGoal.text.toString().isBlank()) {
-            etWeightGoal.error = "Please fill in a weight goal"
+    /**
+     * check if the day is a correct day
+     */
+    private fun validateDay(theInput: EditText): Boolean {
+        if(theInput.text.toString().toInt() < ZERO || theInput.text.toString().toInt() > MAX_DAYS){
+            theInput.error = "Fill in a valid day"
             return false
         }
-
-        if (etFatGoal.text.toString().isBlank()|| etFatGoal.text.toString().toInt() < zero ||
-            etFatGoal.text.toString().toInt() > hundred) {
-            etFatGoal.error = "Please fill in a fat percentage goal"
-            return false
-        }
-
-        if (etDay.text.toString().isBlank() || etMonth.text.toString().isBlank() ||
-            etYear.text.toString().isBlank()) {
-            etDay.error = "Please fill in a day"
-            etMonth.error = "Please fill in a month"
-            etYear.error = "Please fill in a year"
-            return false
-        }
-
-        if(etDay.text.toString().toInt() < zero || etDay.text.toString().toInt() > maxDays){
-            etDay.error = "Fill in a valid day"
-            return false
-        }
-
-        if(etMonth.text.toString().toInt() < zero || etMonth.text.toString().toInt() > maxMonths){
-            etMonth.error = "Fill in a valid month"
-            return false
-        }
-
-        if(etYear.text.toString().toInt() < minYear || etYear.text.toString().toInt() > maxYear){
-            etYear.error = "Fill in a valid year"
-            return false
-        }
-
         return true
     }
 }

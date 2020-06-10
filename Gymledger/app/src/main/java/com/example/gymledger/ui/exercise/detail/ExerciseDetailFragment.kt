@@ -5,7 +5,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.constraintlayout.solver.widgets.Snapshot
 import androidx.constraintlayout.widget.Constraints.TAG
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +20,9 @@ import com.example.gymledger.model.Exercise
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_exercise_detail.*
 
-
+/**
+ * Created by Costa van Elsas
+ */
 class ExerciseDetailFragment : Fragment() {
 
     override fun onCreateView(
@@ -75,7 +76,6 @@ class ExerciseDetailFragment : Fragment() {
 
         tvDetailNaam.text = exercise.naam
         tvContent.text = exercise.beschrijving
-
     }
 
     /**
@@ -89,18 +89,18 @@ class ExerciseDetailFragment : Fragment() {
         exerciseDetailViewModel.exercise.observeNonNull(viewLifecycleOwner, this::initViews)
     }
 
-    fun deleteData(){
+    /**
+     * function to delete the data form firebase when the menu button is clicked
+     */
+    private fun deleteData(){
         val ref = FirebaseDatabase.getInstance().getReference("exercise")
-        //val id = ref.child("exercise").push().key
-        //val idQuery: Query = ref.child(id!!)
         val exercise = exerciseDetailViewModel.exercise
 
+        //add listener when the value is being deleted
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (idSnapshot in dataSnapshot.children) {
-
                     val exerciseDb = idSnapshot.getValue(Exercise::class.java)
-
                     if (exerciseDb != null && exerciseDb == exercise.value) {
                         val keyToDelete = idSnapshot.key
                         ref.child(keyToDelete!!).removeValue()
@@ -109,22 +109,14 @@ class ExerciseDetailFragment : Fragment() {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                Log.e(TAG, "onCancelled", databaseError.toException())
+                Log.e(TAG, "database error!!", databaseError.toException())
             }
         })
-//        val ref = FirebaseDatabase.getInstance().getReference("exercise").child(id.toString())
-//        val id = ref.key
-//        ref.removeValue(id)
     }
 
-//    private var firebaseData = FirebaseDatabase.getInstance().reference
-//    fun removeItem() {
-//            firebaseData
-//                .child("exercise")
-//                .child()
-//                .setValue(null)
-//    }
-
+    /**
+     *  when the trashcan is selected call the deleteData() method
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_delete_icon -> {

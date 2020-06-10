@@ -5,14 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.gymledger.database.Converters
-import com.example.gymledger.model.ExercisePersonalInfo
 import com.example.gymledger.model.Measurement
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.util.*
 
 /**
  * Created by Costa van Elsas on 5-6-2020.

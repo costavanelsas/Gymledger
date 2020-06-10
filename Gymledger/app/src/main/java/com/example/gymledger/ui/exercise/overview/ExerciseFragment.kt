@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymledger.R
 import com.example.gymledger.model.Exercise
+import com.example.gymledger.ui.exercise.add.AddExercise
 import kotlinx.android.synthetic.main.exercise_fragment.*
 import kotlinx.android.synthetic.main.item_fab.*
 
@@ -41,7 +42,7 @@ class ExerciseFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         fab.setOnClickListener{
-            val intent = Intent(context, com.example.gymledger.ui.exercise.add.AddExercise::class.java)
+            val intent = Intent(context, AddExercise::class.java)
             startActivity(intent)
         }
 
@@ -52,7 +53,7 @@ class ExerciseFragment : Fragment() {
     }
 
     /**
-     * Prepares the views inside this activity.
+     * Prepares the views inside this fragment.
      */
     private fun initViews() {
         recycler_view = view?.findViewById(R.id.rvExercise)
@@ -61,7 +62,7 @@ class ExerciseFragment : Fragment() {
     }
 
     /**
-     * Prepares the data needed for this activity.
+     * Prepares the data needed for this fragment
      */
     private fun initViewModel() {
         exerciseViewModel =
@@ -80,6 +81,9 @@ class ExerciseFragment : Fragment() {
         })
     }
 
+    /**
+     * when a exercise is clicked go to the details page of that exercise with the navArgs
+     */
     private fun onExerciseClick(exercise: Exercise) {
         val action = ExerciseFragmentDirections.actionExerciseFragmentToExerciseDetailFragment(
             exercise, exercise.naam)
